@@ -13,7 +13,6 @@ This node supports batch image tagging and provides both a simple tagger interfa
 * Configurable category thresholds
 * Underscore replacement
 * Tag exclusion
-* Optional trailing comma
 * Optional model unloading after execution
 * Model is downloaded automatically from Hugging Face on first use
 
@@ -42,19 +41,13 @@ This node is compatible with WD14 Tagger node and can replace or use with it.
 
 * `all_tags` — Combined general, character, and style tags
 
-Default thresholds:
-
-* General: `0.17`
-* Character: `0.27`
-* Style: `0.17`
-
-> The Simple node uses a shared threshold for general and style tags for a simpler workflow. The PixAI-recommended style threshold of `0.15` is available in the Advanced node.
+> This node uses a shared threshold for general and style tags for a simpler workflow. The PixAI-recommended style threshold of `0.15` is available in the Advanced node.
 
 ---
 
 ### PixAI Tagger (Advanced)
 
-Provides separate outputs for all PixAI Tagger categories.
+Provides as-is outputs from PixAI Tagger, including 6 tag categories.
 
 **Inputs**
 
@@ -85,9 +78,14 @@ The default category thresholds above follow the thresholds recommended by PixAI
 
 ## Installation
 
-### ComfyUI Manager
+### ComfyUI Registry / Manager
 
-Once this project is available through ComfyUI Manager or the Comfy Registry, it can be installed directly from the Manager.
+This node package is available through the ComfyUI Registry and can be installed from ComfyUI Manager.
+
+1. Open ComfyUI Manager.
+2. Search for `ComfyUI PixAI Tagger`.
+3. Install the package.
+4. Restart ComfyUI.
 
 ### Manual Installation
 
