@@ -1,0 +1,13 @@
+[project]
+name = "comfyui-pixai-tagger"
+description = "ComfyUI custom nodes for image tagging with PixAI Tagger v1.0."
+version = "1.0.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "transformers",
+    "timm",
+    "huggingface_hub",
+    "numpy",
+    "Pillow",
+]
