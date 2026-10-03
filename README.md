@@ -28,7 +28,7 @@ This node is compatible with WD14 Tagger node and can replace or use with it.
 **Inputs**
 
 | Input                 | Description                             | Default |
-| --------------------- | --------------------------------------- | ------: |
+| --------------------- | --------------------------------------- | ------- |
 | `images`              | Input image(s)                          |         |
 | `model`               | Hugging Face model ID                   | pixai-labs/pixai-tagger-v1.0 |
 | `threshold`           | Threshold for general and style tags    |  `0.17` |
@@ -59,7 +59,7 @@ Provides separate outputs for all PixAI Tagger categories.
 **Inputs**
 
 | Input                 | Description                             | Default |
-| --------------------- | --------------------------------------- | ------: |
+| --------------------- | --------------------------------------- | ------- |
 | `images`              | Input image(s)                          |         |
 | `model`               | Hugging Face model ID                   | pixai-labs/pixai-tagger-v1.0 |
 | `character_threshold` | Threshold for character tags            | `0.27` |
