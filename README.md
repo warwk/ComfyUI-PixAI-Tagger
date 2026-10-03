@@ -27,16 +27,16 @@ This node is compatible with WD14 Tagger node and can replace or use with it.
 
 **Inputs**
 
-| Input                 | Description                             |
-| --------------------- | --------------------------------------- |
-| `image`               | Input image(s)                          |
-| `model`               | Hugging Face model ID                   |
-| `threshold`           | Threshold for general and style tags    |
-| `character_threshold` | Threshold for character tags            |
-| `replace_underscore`  | Replace `_` with spaces                 |
-| `trailing_comma`      | Add a trailing comma to the output      |
-| `unload_model`        | Unload the model after execution        |
-| `exclude_tags`        | Comma-separated list of tags to exclude |
+| Input                 | Description                             | Default |
+| --------------------- | --------------------------------------- | ------: |
+| `images`              | Input image(s)                          |         |
+| `model`               | Hugging Face model ID                   | pixai-labs/pixai-tagger-v1.0 |
+| `threshold`           | Threshold for general and style tags    |  `0.17` |
+| `character_threshold` | Threshold for character tags            |  `0.27` |
+| `replace_underscore`  | Replace `_` with spaces                 | `False` |
+| `trailing_comma`      | Add a trailing comma to the output      | `False` |
+| `unload_model`        | Unload the model after execution        | `False` |
+| `exclude_tags`        | Comma-separated list of tags to exclude |    `""` |
 
 **Output**
 
@@ -58,17 +58,19 @@ Provides separate outputs for all PixAI Tagger categories.
 
 **Inputs**
 
-| Input                 | Default |
-| --------------------- | ------: |
-| `character_threshold` |  `0.27` |
-| `general_threshold`   |  `0.17` |
-| `style_threshold`     |  `0.15` |
-| `copyright_threshold` |  `0.24` |
-| `meta_threshold`      |  `0.17` |
-| `rating_threshold`    |  `0.41` |
-| `replace_underscore`  | `False` |
-| `unload_model`        | `False` |
-| `exclude_tags`        |    `""` |
+| Input                 | Description                             | Default |
+| --------------------- | --------------------------------------- | ------: |
+| `images`              | Input image(s)                          |         |
+| `model`               | Hugging Face model ID                   | pixai-labs/pixai-tagger-v1.0 |
+| `character_threshold` | Threshold for character tags            | `0.27` |
+| `general_threshold`   | Threshold for general tags              | `0.17` |
+| `style_threshold`     | Threshold for style tags                | `0.15` |
+| `copyright_threshold` | Threshold for copyright tags            | `0.24` |
+| `meta_threshold`      | Threshold for meta tags                 | `0.17` |
+| `rating_threshold`    | Threshold for rating tags               | `0.41` |
+| `replace_underscore`  | Replace `_` with spaces                 | `False` |
+| `unload_model`        | Unload the model after execution        | `False` |
+| `exclude_tags`        | Comma-separated list of tags to exclude |    `""` |
 
 **Outputs**
 
