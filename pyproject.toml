@@ -11,3 +11,10 @@ dependencies = [
     "numpy",
     "Pillow",
 ]
+
+[project.urls]
+Repository = "https://github.com/warwk/ComfyUI-PixAI-Tagger"
+
+[tool.comfy]
+PublisherId = "warwk"
+DisplayName = "ComfyUI PixAI Tagger"

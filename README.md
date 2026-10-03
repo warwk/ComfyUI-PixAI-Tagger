@@ -208,6 +208,7 @@ See the `LICENSE` file for the complete license text.
 ### Third-Party Software and Models
 
 This project uses **PixAI Tagger v1.0**, which is licensed under the **Apache License 2.0**.
+
 The PixAI Tagger model and its associated implementation are provided by PixAI Labs and are subject to their respective license terms.
 
 PixAI Tagger v1.0:
