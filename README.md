@@ -22,6 +22,8 @@ This node supports batch image tagging and provides both a simple tagger interfa
 ### PixAI Tagger
 
 A simple tagger designed for workflows that need a single combined tag list.
+This node is compatible with WD14 Tagger node and can replace or use with it.
+
 
 **Inputs**
 
@@ -185,14 +187,6 @@ text, watermark, signature
 
 Tag matching for exclusion is case-insensitive.
 
-## WD14 Tagger Compatibility
-
-The Simple `PixAI Tagger` node is designed to provide a workflow and interface similar to commonly used WD14 Tagger nodes.
-
-This project is an independent implementation using the Transformers pipeline API and does **not** include or redistribute the source code of `ComfyUI-WD14-Tagger`.
-
-The PixAI Tagger model and its associated implementation are provided by PixAI Labs and are subject to their respective license terms.
-
 ## Requirements
 
 The main Python dependencies are:
@@ -214,6 +208,7 @@ See the `LICENSE` file for the complete license text.
 ### Third-Party Software and Models
 
 This project uses **PixAI Tagger v1.0**, which is licensed under the **Apache License 2.0**.
+The PixAI Tagger model and its associated implementation are provided by PixAI Labs and are subject to their respective license terms.
 
 PixAI Tagger v1.0:
 
