@@ -1,5 +1,9 @@
 import numpy as np
 from PIL import Image
+from transformers import AutoImageProcessor, AutoModel, pipeline
+import os
+
+import folder_paths
 
 def process_tags(tagger_results, threshold, replace_underscore, remove):
     tags = []
@@ -12,7 +16,42 @@ def process_tags(tagger_results, threshold, replace_underscore, remove):
             tags.append(item)
     return tags
 
+cached_tagger_model = {}
+cached_tagger_model_name = ""
+def load_tagger_model(model):
+    global cached_tagger_model
+    global cached_tagger_model_name
+    if cached_tagger_model_name != model:
+        model_directory = os.path.join(folder_paths.models_dir, "Taggers")
+        model_name = model.rsplit('/', 1)[-1]
+        model_path = os.path.join(model_directory, model_name)
+        
+        if not os.path.exists(model_path):
+            print(f"Downloading model to: {model_path}")
+            from huggingface_hub import snapshot_download
+            snapshot_download(repo_id=model,
+                            local_dir=model_path,
+                            local_dir_use_symlinks=False)
 
+        loaded_model = AutoModel.from_pretrained(model_path, trust_remote_code=True)
+        image_processor = AutoImageProcessor.from_pretrained(model_path, trust_remote_code=True)
+
+        cached_tagger_model = pipeline(
+            task="tagger",
+            model=loaded_model,
+            image_processor=image_processor,
+            trust_remote_code=True,
+        )
+        cached_tagger_model_name = model
+
+    return cached_tagger_model
+
+def unload_tagger_model():
+    global cached_tagger_model
+    global cached_tagger_model_name
+    cached_tagger_model = {}
+    cached_tagger_model_name = ""
+    
 class PixaiTagger:
     @classmethod
     def INPUT_TYPES(s):
@@ -64,21 +103,14 @@ class PixaiTagger:
         tensor = np.array(tensor, dtype=np.uint8)
         remove = [s.strip() for s in exclude_tags.lower().split(",")]
         all_tags = []
-        from transformers import pipeline
-        
+
         # load pixai tagger model
-        if self.loaded_model != model:
-            self.tagger = pipeline(
-                model=model,
-                image_processor=model,
-                trust_remote_code=True,
-            )
-            self.loaded_model = model
-        
+        tagger = load_tagger_model(model)
+
         # iterate through each image in the batch
         for i in range(tensor.shape[0]):
             image = Image.fromarray(tensor[i])
-            results = self.tagger(image)["results"]
+            results = tagger(image)["results"]
 
             _general = process_tags(results["general"], threshold, replace_underscore, remove)
             _character = process_tags(results["character"], character_threshold, replace_underscore, remove)
@@ -91,8 +123,7 @@ class PixaiTagger:
                 all_tags[-1] += ","
 
         if unload_model:
-            self.tagger = None
-            self.loaded_model = ""
+            unload_tagger_model()
         return (all_tags,)
 
 class PixaiTaggerAdvanced:
@@ -163,21 +194,15 @@ class PixaiTaggerAdvanced:
         copyright_tags = []
         meta_tags = []
         rating_tags = []
-        from transformers import pipeline
         
         # load pixai tagger model
-        if self.loaded_model != model:
-            self.tagger = pipeline(
-                model=model,
-                image_processor=model,
-                trust_remote_code=True,
-            )
-            self.loaded_model = model
+        tagger = load_tagger_model(model)
         
         # iterate through each image in the batch
         for i in range(tensor.shape[0]):
             image = Image.fromarray(tensor[i])
-            results = self.tagger(image)["results"]
+            #results = self.tagger(image)["results"]
+            results = tagger(image)["results"]
 
             _general =   process_tags(results["general"],   general_threshold, replace_underscore, remove)
             _character = process_tags(results["character"], character_threshold, replace_underscore, remove)
@@ -194,7 +219,6 @@ class PixaiTaggerAdvanced:
             rating_tags.append(", ".join(_rating))
 
         if unload_model:
-            self.tagger = None
-            self.loaded_model = ""
+            unload_tagger_model()
         return (character_tags, general_tags, style_tags, copyright_tags, meta_tags, rating_tags)
 
