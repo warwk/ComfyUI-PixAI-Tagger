@@ -30,3 +30,4 @@ htmlcov/
 # Local model/cache files
 .cache/
 huggingface/
+node.zip
